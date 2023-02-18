@@ -11,7 +11,10 @@ const Header: React.FC = () => {
 
   let left = (
     <div className="left">
-      <Link href="/">Feed</Link>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Link href="/">
+        <div>Feed</div>
+      </Link>
       <style jsx>{`
         .bold {
           font-weight: bold;
