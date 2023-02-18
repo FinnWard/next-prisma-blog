@@ -10,182 +10,75 @@ const Header: React.FC = () => {
   const { data: session, status } = useSession();
 
   let left = (
-    <div className="left">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Link href="/">
-        <div>Feed</div>
-      </Link>
-      <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: var(--geist-foreground);
-          display: inline-block;
-        }
-
-        .left a[data-active="true"] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-      `}</style>
-    </div>
+    <Link href="/">
+      <button className="rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
+        Feed
+      </button>
+    </Link>
   );
 
   let right = null;
 
   if (status === "loading") {
     left = (
-      <div className="left">
-        <Link href="/">Feed</Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
+      <Link href="/">
+        <button className="rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
+          Feed
+        </button>
+      </Link>
     );
-    right = (
-      <div className="right">
-        <p>Validating session ...</p>
-        <style jsx>{`
-          .right {
-            margin-left: auto;
-          }
-        `}</style>
-      </div>
-    );
+    right = <p>Validating session ...</p>;
   }
 
   if (!session) {
     right = (
-      <div className="right">
-        <Link href="/api/auth/signin">Log in</Link>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-        `}</style>
-      </div>
+      <Link href="/api/auth/signin">
+        <button className="rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
+          Log in
+        </button>
+      </Link>
     );
   }
 
   if (session) {
     left = (
-      <div className="left">
-        <Link href="/">Feed</Link>
-        <Link href="/drafts">My drafts</Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
+      <div className="flex justify-between gap-5 align-middle">
+        <Link href="/">
+          {" "}
+          <button className="h-10 rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
+            Feed
+          </button>
+        </Link>
+        <Link href="/drafts">
+          {" "}
+          <button className="h-10 rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
+            My Drafts
+          </button>
+        </Link>
       </div>
     );
     right = (
-      <div className="right">
-        <p>
-          {session.user.name} ({session.user.email})
-        </p>
-        <Link href="/create">New post</Link>
-        <button onClick={() => signOut()}>
-          <a>Log out</a>
+      <div className="flex justify-center gap-5 align-middle">
+        <p className="border-b border-slate-900 p-2">{session.user.name}</p>
+        <Link href="/create" className="">
+          <button className="h-10 rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
+            New Post
+          </button>
+        </Link>
+        <button
+          className="h-10 rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300"
+          onClick={() => signOut()}
+        >
+          Log out
         </button>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          p {
-            display: inline-block;
-            font-size: 13px;
-            padding-right: 1rem;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-
-          button {
-            border: none;
-          }
-        `}</style>
       </div>
     );
   }
 
   return (
-    <nav>
+    <nav className="flex justify-between py-4">
       {left}
       {right}
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
     </nav>
   );
 };
