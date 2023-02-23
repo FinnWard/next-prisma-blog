@@ -59,7 +59,9 @@ const Header: React.FC = () => {
     );
     right = (
       <div className="flex justify-center gap-5 align-middle">
-        <p className="border-b border-slate-900 p-2">{session.user.name}</p>
+        <p className="border-b border-slate-900 p-2">
+          {session?.user?.name ?? "anon"}
+        </p>
         <Link href="/create" className="">
           <button className="h-10 rounded border border-slate-500 bg-slate-100 px-3 py-1 hover:bg-slate-300">
             New Post
